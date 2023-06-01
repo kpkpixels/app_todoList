@@ -1,0 +1,108 @@
+:root{
+    --primeira-cor: #fff;
+    --primeira-cor-light: #a0c1c5;
+    --segunda-cor: #455D85;
+    --segunda-cor-light: #adb1b9;
+    --terceira-cor: #455D85;
+    --cor-icones: #000;
+    --cor-fundo: #7e6fe1;
+    --cor-fundo-darker:#94bec3;
+    --cor-fundo-more-darker:#516769;
+
+    --transicaoPadrao: 0.6s cubic-bezier(0.61, 0.11, 0.07, 1.12);
+}
+body.tema-escuro{
+    --primeira-cor: #3f3e84;
+    --primeira-cor-light: #b4bedf;
+    --segunda-cor: #c8c8c8;
+    --segunda-cor-light: #667185;
+    --terceira-cor: #c8c8c8;
+    --cor-icones: #fff;
+    --cor-fundo: #403d4d;
+    --cor-fundo-darker:#2d2b36;
+    --cor-fundo-more-darker:#000000;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: none;
+    box-sizing: border-box;
+}
+body{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:var(--primeira-cor);
+    margin: 0 4vw;
+    transition: var(--transicaoPadrao);
+}
+
+.container{
+    position: relative;
+    width: 93vw;
+    height: 800px;
+    background: var(--cor-fundo);
+    padding: 10px;
+    overflow: hidden;
+    border-radius: 18px;
+    font-family: "Roboto", sans-serif;
+    transition: var(--transicaoPadrao);
+    box-shadow: 2px 2px 5px 0px black;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+}
+.coluna{
+    background-color: var(--cor-fundo-more-darker);
+    width: 33.333%;
+    margin: 0 5px;
+    border-radius: 10px;
+    padding: 10px;
+    height: 100%;
+    box-shadow: 2px 2px 10px 0px black;
+}
+.nome_coluna{
+    background-color: var(--cor-fundo-darker);
+    border-radius: 5px;
+    text-align: center;
+    font-size: 12px;
+    padding: 10px;
+    box-shadow: 2px 2px 10px 0px #0000007d;
+}
+/* .itens_coluna{
+    margin: 5px;
+} */
+.adicionar_item{
+    /* box-shadow: 2px 2px 10px 0px #0000007d; */
+    transition: var(--transicaoPadrao);
+    background-color: var(--cor-fundo-darker);
+    height: 50px;
+    border-radius: 5px;
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    cursor: pointer;
+}
+.adicionar_item:hover{
+    background-color: var(--cor-fundo-more-darker);
+}
+.item_coluna{
+    transition: var(--transicaoPadrao);
+    box-shadow: 2px 2px 10px 0px #0000007d;
+    background-color: var(--cor-fundo-darker);
+    height: 120px;
+    border-radius: 5px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+.item_coluna:hover{
+    background-color: var(--cor-fundo-more-darker);
+}
