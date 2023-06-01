@@ -75,9 +75,15 @@ body{
     padding: 10px;
     box-shadow: 2px 2px 10px 0px #0000007d;
 }
-/* .itens_coluna{
+.itens_coluna{
     margin: 5px;
-} */
+    overflow-y: scroll;
+    height: 93%;
+    transition: var(--transicaoPadrao);
+} 
+.itens_coluna::-webkit-scrollbar {
+    display: none;
+}
 .adicionar_item{
     /* box-shadow: 2px 2px 10px 0px #0000007d; */
     transition: var(--transicaoPadrao);
@@ -102,7 +108,21 @@ body{
     border-radius: 5px;
     margin-top: 5px;
     cursor: pointer;
+    padding: 5px;
 }
 .item_coluna:hover{
     background-color: var(--cor-fundo-more-darker);
+}
+.titulo_item{
+    padding: 2px;
+    border-radius: 5px;
+    background-color: white;    
+    margin-bottom: 5px;
+    height: 25%;
+}
+.descricao_item{
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(187, 187, 187);
+    height: 70%;
 }
