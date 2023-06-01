@@ -5,8 +5,8 @@
     --segunda-cor-light: #adb1b9;
     --terceira-cor: #455D85;
     --cor-icones: #000;
-    --cor-fundo: #7e6fe1;
-    --cor-fundo-darker:#94bec3;
+    --cor-fundo: #3c443c;
+    --cor-fundo-darker:#878787;
     --cor-fundo-more-darker:#516769;
 
     --transicaoPadrao: 0.6s cubic-bezier(0.61, 0.11, 0.07, 1.12);
@@ -43,7 +43,8 @@ body{
 .container{
     position: relative;
     width: 93vw;
-    height: 800px;
+    max-width: 900px;
+    height: 80%;
     background: var(--cor-fundo);
     padding: 10px;
     overflow: hidden;
@@ -63,12 +64,16 @@ body{
     width: 33.333%;
     margin: 0 5px;
     border-radius: 10px;
-    padding: 10px;
+    padding: 5px;
     height: 100%;
     box-shadow: 2px 2px 10px 0px black;
+    transition: var(--transicaoPadrao);
+}
+.colunaAtual{
+    background-color: var(--cor-fundo);
 }
 .nome_coluna{
-    background-color: var(--cor-fundo-darker);
+    background-color: var(--segunda-cor-light);
     border-radius: 5px;
     text-align: center;
     font-size: 12px;
@@ -78,7 +83,7 @@ body{
 .itens_coluna{
     margin: 5px;
     overflow-y: scroll;
-    height: 93%;
+    height: 82%;
     transition: var(--transicaoPadrao);
 } 
 .itens_coluna::-webkit-scrollbar {
@@ -87,10 +92,10 @@ body{
 .adicionar_item{
     /* box-shadow: 2px 2px 10px 0px #0000007d; */
     transition: var(--transicaoPadrao);
-    background-color: var(--cor-fundo-darker);
-    height: 50px;
+    background-color: var(--segunda-cor-light);
+    height: 40px;
     border-radius: 5px;
-    margin-top: 5px;
+    margin: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -98,12 +103,12 @@ body{
     cursor: pointer;
 }
 .adicionar_item:hover{
-    background-color: var(--cor-fundo-more-darker);
+    background-color: var(--segunda-cor);
 }
 .item_coluna{
     transition: var(--transicaoPadrao);
     box-shadow: 2px 2px 10px 0px #0000007d;
-    background-color: var(--cor-fundo-darker);
+    background-color: var(--segunda-cor-light);
     height: 120px;
     border-radius: 5px;
     margin-top: 5px;
@@ -111,18 +116,40 @@ body{
     padding: 5px;
 }
 .item_coluna:hover{
-    background-color: var(--cor-fundo-more-darker);
+    background-color: var(--segunda-cor);
 }
-.titulo_item{
-    padding: 2px;
-    border-radius: 5px;
-    background-color: white;    
+.titulo_item{      
     margin-bottom: 5px;
-    height: 25%;
+    display: flex;
+}
+.titulo_item > input{
+    background-color: white; 
+    border-radius: 5px;  
+    font-size: 18px;
+    font-weight: bold;
+    padding: 2px;
+    width: 90%;
+    margin-right: 2px;
+}
+.titulo_item > span{
+    width: 10%;
+    background-color: white;
+    border-radius: 5px;
+    text-align: center;
+}
+.titulo_item > span > i {
+    margin: 6px;
+    font-size: 12px;
 }
 .descricao_item{
     padding: 5px;
     border-radius: 5px;
     background-color: rgb(187, 187, 187);
     height: 70%;
+}
+.descricao_item > textarea{
+    background: none;
+    resize: none;
+    max-width: 100%; 
+    max-height: 100%;
 }
