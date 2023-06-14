@@ -2,6 +2,8 @@ const itens = document.querySelectorAll(".item_coluna");
 const colunas = document.querySelectorAll(".itens_coluna");
 let draggableItem = null;
 
+let itensArray = [];
+
 itens.forEach(item => {
     item.addEventListener("dragstart", arrastarComeca);
     item.addEventListener("dragend", arrastarTermina);
@@ -36,4 +38,19 @@ function arrastarDropa(){
 function deletaItem(){
     console.log(this);
     
+}
+
+function addItem(colunaIndex){
+    colunas[colunaIndex].innerHTML += 
+    '<div draggable="true" class="item_coluna">'+
+        '<div class="titulo_item">'+
+            '<input type="text" placeholder="Digite um título" value="">'+
+            '<span onclick="deletaItem()"><i class="fa-solid fa-x"></i></span>'+
+        '</div>'+
+        '<div class="descricao_item">'+
+            '<textarea name="" id="" placeholder="Digite uma breve descrição..." cols="30" rows="4"></textarea>'+
+        '</div>'+
+    '</div> ';
+    
+    itensArray.push(itensArray.length + 1);
 }
