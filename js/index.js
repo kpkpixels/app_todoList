@@ -1,8 +1,23 @@
 const itens = document.querySelectorAll(".item_coluna");
-const colunas = document.querySelectorAll(".itens_coluna");
+let colunas = document.querySelectorAll(".itens_coluna");
+const container = document.querySelector(".container");
+
 let draggableItem = null;
 
-let itensArray = [];
+let colunasArray = [
+    {
+        "nome" : "Para Fazer",
+        "itens" : []
+    },
+    {
+        "nome" : "Fazendo",
+        "itens" : []
+    },
+    {
+        "nome" : "Pronto",
+        "itens" : []
+    },
+];
 
 itens.forEach(item => {
     item.addEventListener("dragstart", arrastarComeca);
@@ -35,22 +50,47 @@ function arrastarDropa(){
     this.closest(".coluna").classList.remove("colunaAtual");
 }
 
-function deletaItem(){
-    console.log(this);
+function deletaItem(itemIndex){
+    let item = colunasArray.find(coluna => coluna.item === itemIndex);
     
 }
+function getColunas(){
+    for (let i = 0; i < colunasArray.length; i++) {
+        container.innerHTML += 
+        '<div class="coluna">'+
+            '<div class="nome_coluna">'+
+                '<h1>'+colunasArray[i].nome+'</h1>'+
+            '</div>'+
+            '<div onclick="addItem('+i+')" class="adicionar_item">'+
+                '<i class="fa-solid fa-plus"></i>'+
+            '</div>'+
+            '<div class="itens_coluna"> '+
+            '</div>'+
+        '</div>';
+    }    
+
+    colunas = document.querySelectorAll(".itens_coluna");
+}
+
 
 function addItem(colunaIndex){
+    let index = colunasArray[colunaIndex].itens.length + 1;
+
     colunas[colunaIndex].innerHTML += 
     '<div draggable="true" class="item_coluna">'+
         '<div class="titulo_item">'+
             '<input type="text" placeholder="Digite um título" value="">'+
-            '<span onclick="deletaItem()"><i class="fa-solid fa-x"></i></span>'+
+            '<span onclick="deletaItem('+index+')"><i class="fa-solid fa-x"></i></span>'+
         '</div>'+
         '<div class="descricao_item">'+
             '<textarea name="" id="" placeholder="Digite uma breve descrição..." cols="30" rows="4"></textarea>'+
         '</div>'+
     '</div> ';
-    
-    itensArray.push(itensArray.length + 1);
+
+    colunasArray[colunaIndex].itens.push(index);
+}
+
+
+window.onload = function() {
+    getColunas();
 }
