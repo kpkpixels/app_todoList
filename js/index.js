@@ -1,4 +1,4 @@
-const itens = document.querySelectorAll(".item_coluna");
+let itens = document.querySelectorAll(".item_coluna");
 let colunas = document.querySelectorAll(".itens_coluna");
 const container = document.querySelector(".container");
 
@@ -19,16 +19,22 @@ let colunasArray = [
     },
 ];
 
-itens.forEach(item => {
-    item.addEventListener("dragstart", arrastarComeca);
-    item.addEventListener("dragend", arrastarTermina);
-});
-colunas.forEach(coluna => {
-    coluna.addEventListener("dragover", arrastarPorCima);
-    coluna.addEventListener("dragenter", arrastarEntra);
-    coluna.addEventListener("dragleave", arrastarSai);
-    coluna.addEventListener("drop", arrastarDropa);
-});
+
+function adicionaListenerItens(){
+    itens.forEach(item => {
+        item.addEventListener("dragstart", arrastarComeca);
+        item.addEventListener("dragend", arrastarTermina);
+    });
+}
+
+function adicionaListenerColunas(){
+    colunas.forEach(coluna => {             
+        coluna.addEventListener("dragover", arrastarPorCima);
+        coluna.addEventListener("dragenter", arrastarEntra);
+        coluna.addEventListener("dragleave", arrastarSai);
+        coluna.addEventListener("drop", arrastarDropa);
+    });
+}
 
 function arrastarComeca(){
     draggableItem = this;
@@ -50,9 +56,12 @@ function arrastarDropa(){
     this.closest(".coluna").classList.remove("colunaAtual");
 }
 
-function deletaItem(itemIndex){
-    let item = colunasArray.find(coluna => coluna.item === itemIndex);
-    
+function deletaItem(colunaIndex, itemIndex){
+    colunasArray[colunaIndex].itens.forEach(item => {
+        if (item == itemIndex){
+            console.log("ababab");
+        }
+    });    
 }
 function getColunas(){
     for (let i = 0; i < colunasArray.length; i++) {
@@ -70,8 +79,23 @@ function getColunas(){
     }    
 
     colunas = document.querySelectorAll(".itens_coluna");
+    adicionaListenerColunas();
 }
 
+function getItens(){
+    colunasArray[colunaIndex].itens.forEach(item => {
+        colunas[colunaIndex].innerHTML += 
+        '<div draggable="true" class="item_coluna">'+
+            '<div class="titulo_item">'+
+                '<input type="text" placeholder="Digite um título" value="">'+
+                '<span onclick="deletaItem('+colunaIndex+','+index+')"><i class="fa-solid fa-x"></i></span>'+
+            '</div>'+
+            '<div class="descricao_item">'+
+                '<textarea name="" id="" placeholder="Digite uma breve descrição..." cols="30" rows="4"></textarea>'+
+            '</div>'+
+        '</div> ';
+    }); 
+}
 
 function addItem(colunaIndex){
     let index = colunasArray[colunaIndex].itens.length + 1;
@@ -80,14 +104,16 @@ function addItem(colunaIndex){
     '<div draggable="true" class="item_coluna">'+
         '<div class="titulo_item">'+
             '<input type="text" placeholder="Digite um título" value="">'+
-            '<span onclick="deletaItem('+index+')"><i class="fa-solid fa-x"></i></span>'+
+            '<span onclick="deletaItem('+colunaIndex+','+index+')"><i class="fa-solid fa-x"></i></span>'+
         '</div>'+
         '<div class="descricao_item">'+
             '<textarea name="" id="" placeholder="Digite uma breve descrição..." cols="30" rows="4"></textarea>'+
         '</div>'+
     '</div> ';
 
-    colunasArray[colunaIndex].itens.push(index);
+    colunasArray[colunaIndex].itens.push(new Item(index, "", ""));
+    itens = document.querySelectorAll(".item_coluna");
+    adicionaListenerItens();
 }
 
 
