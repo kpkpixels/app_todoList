@@ -17,6 +17,14 @@ let colunasArray = [
         "nome" : "Pronto",
         "itens" : []
     },
+    {
+        "nome" : "SOzua",
+        "itens" : []
+    },
+    {
+        "nome" : "SOzua",
+        "itens" : []
+    },
 ];
 
 
@@ -64,6 +72,8 @@ function deletaItem(colunaIndex, itemIndex){
     });    
 }
 function getColunas(){
+    container.innerHTML = "";
+
     for (let i = 0; i < colunasArray.length; i++) {
         container.innerHTML += 
         '<div class="coluna">'+
@@ -83,6 +93,8 @@ function getColunas(){
 }
 
 function getItens(){
+    colunas[colunaIndex].innerHTML = "";
+
     colunasArray[colunaIndex].itens.forEach(item => {
         colunas[colunaIndex].innerHTML += 
         '<div draggable="true" class="item_coluna">'+

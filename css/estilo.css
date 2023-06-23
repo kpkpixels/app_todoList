@@ -47,21 +47,24 @@ body{
     height: 80%;
     background: var(--cor-fundo);
     padding: 10px;
-    overflow: hidden;
     border-radius: 18px;
     font-family: "Roboto", sans-serif;
     transition: var(--transicaoPadrao);
     box-shadow: 2px 2px 5px 0px black;
 
-    display: flex;
+    /* display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: flex-start;
-    flex-wrap: nowrap;
+    flex-wrap: nowrap; */
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(33.333%,1fr);    
+    overflow-x: scroll;
 }
 .coluna{
     background-color: var(--cor-fundo-more-darker);
-    width: 33.333%;
+    /* width: 33.333%; */
     margin: 0 5px;
     border-radius: 10px;
     padding: 5px;
@@ -87,8 +90,14 @@ body{
     transition: var(--transicaoPadrao);
 } 
 .itens_coluna::-webkit-scrollbar {
-    display: none;
+    /* display: none; */
 }
+.itens_coluna::-webkit-scrollbar-thumb {
+    border-radius: 100px;
+    background: #8070d4;
+    border: 6px solid rgba(0, 0, 0, 0.2);
+  }
+
 .adicionar_item{
     /* box-shadow: 2px 2px 10px 0px #0000007d; */
     transition: var(--transicaoPadrao);
