@@ -4,28 +4,19 @@ const container = document.querySelector(".container");
 
 let draggableItem = null;
 
-let colunasArray = [
-    {
-        "nome" : "Para Fazer",
-        "itens" : []
-    },
-    {
-        "nome" : "Fazendo",
-        "itens" : []
-    },
-    {
-        "nome" : "Pronto",
-        "itens" : []
-    },
-    {
-        "nome" : "SOzua",
-        "itens" : []
-    },
-    {
-        "nome" : "SOzua",
-        "itens" : []
-    },
-];
+
+let colunasArray = [];
+
+//todo: isso aqui nao vai mais existir quando tiver o backend
+function geraColunas(){
+    listaColunas = ["Para Fazer", "Fazendo", "Pronto", "Sozuao", "teste"];
+
+    listaColunas.forEach(col => {
+        colunasArray.push(new Coluna("", col, []));
+    });
+
+    getColunas();
+}
 
 
 function adicionaListenerItens(){
@@ -64,12 +55,12 @@ function arrastarDropa(){
     this.closest(".coluna").classList.remove("colunaAtual");
 }
 
-function deletaItem(colunaIndex, itemIndex){
-    colunasArray[colunaIndex].itens.forEach(item => {
-        if (item == itemIndex){
-            console.log("ababab");
-        }
-    });    
+function deletaItem(colunaIndex, id){
+    colunasArray[colunaIndex].itens = colunasArray[colunaIndex].itens.filter(item => item.id !== id);
+
+    alert("Item "+ id + " Removido");
+
+    getItens(colunaIndex);   
 }
 function getColunas(){
     container.innerHTML = "";
@@ -92,43 +83,56 @@ function getColunas(){
     adicionaListenerColunas();
 }
 
-function getItens(){
+function getItens(colunaIndex){
     colunas[colunaIndex].innerHTML = "";
 
     colunasArray[colunaIndex].itens.forEach(item => {
         colunas[colunaIndex].innerHTML += 
         '<div draggable="true" class="item_coluna">'+
             '<div class="titulo_item">'+
-                '<input type="text" placeholder="Digite um título" value="">'+
-                '<span onclick="deletaItem('+colunaIndex+','+index+')"><i class="fa-solid fa-x"></i></span>'+
+                '<input onchange="setTituloItem('+item.id+','+colunaIndex+', this.value)"  type="text" placeholder="Digite um título" value="'+item.titulo+'">'+
+                '<span onclick="deletaItem('+colunaIndex+','+item.id+')"><i class="fa-solid fa-x"></i></span>'+
             '</div>'+
             '<div class="descricao_item">'+
-                '<textarea name="" id="" placeholder="Digite uma breve descrição..." cols="30" rows="4"></textarea>'+
+                '<textarea onchange="setDescricaoItem('+item.id+','+colunaIndex+', this.value)" name="" id="" placeholder="Digite uma breve descrição..." cols="30" rows="4">'+item.descricao+'</textarea>'+
             '</div>'+
         '</div> ';
     }); 
-}
-
-function addItem(colunaIndex){
-    let index = colunasArray[colunaIndex].itens.length + 1;
-
-    colunas[colunaIndex].innerHTML += 
-    '<div draggable="true" class="item_coluna">'+
-        '<div class="titulo_item">'+
-            '<input type="text" placeholder="Digite um título" value="">'+
-            '<span onclick="deletaItem('+colunaIndex+','+index+')"><i class="fa-solid fa-x"></i></span>'+
-        '</div>'+
-        '<div class="descricao_item">'+
-            '<textarea name="" id="" placeholder="Digite uma breve descrição..." cols="30" rows="4"></textarea>'+
-        '</div>'+
-    '</div> ';
-
-    colunasArray[colunaIndex].itens.push(new Item(index, "", ""));
+    
     itens = document.querySelectorAll(".item_coluna");
     adicionaListenerItens();
 }
 
+function addItem(colunaIndex){
+    let itensColuna = colunasArray[colunaIndex].itens;
+
+    let index = itensColuna.length > 0 ? itensColuna[itensColuna.length - 1].id + 1 : itensColuna.length + 1;
+
+    colunas[colunaIndex].innerHTML += 
+    '<div draggable="true" class="item_coluna">'+
+        '<div class="titulo_item">'+
+            '<input onchange="setTituloItem('+index+','+colunaIndex+', this.value)" type="text" placeholder="Digite um título" value="">'+
+            '<span onclick="deletaItem('+colunaIndex+','+index+')"><i class="fa-solid fa-x"></i></span>'+
+        '</div>'+
+        '<div class="descricao_item">'+
+            '<textarea onchange="setDescricaoItem('+index+','+colunaIndex+', this.value)" name="" id="" placeholder="Digite uma breve descrição..." cols="30" rows="4"></textarea>'+
+        '</div>'+
+    '</div> ';
+
+    itensColuna.push(new Item(index, "", ""));
+    itens = document.querySelectorAll(".item_coluna");
+    adicionaListenerItens();
+}
+function setDescricaoItem(id, colunaId, value){
+    const item = colunasArray[colunaId].itens.find(item => item.id === id);    
+    if (item) item.descricao = value;
+}
+function setTituloItem(id, colunaId, value){
+    const item = colunasArray[colunaId].itens.find(item => item.id === id);    
+    if (item) item.titulo = value;
+}
+
 
 window.onload = function() {
-    getColunas();
+    geraColunas();
 }
